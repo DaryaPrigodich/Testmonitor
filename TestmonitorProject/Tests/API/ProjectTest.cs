@@ -28,6 +28,15 @@ public class ProjectTest : BaseApiTest
         statusCode.Should().Be(HttpStatusCode.OK);
     }
     
+    [Test]
+    [TestCase("incorrect")]
+    public void GetNonExistentProject(string incorrectProjectId)
+    {
+        var statusCode = ProjectService.GetProject(incorrectProjectId);
+
+        statusCode.Should().Be(HttpStatusCode.NotFound);
+    }
+    
     [OneTimeTearDown]
     public void SetUpPostConditionSteps()
     {
