@@ -56,7 +56,7 @@ public class Configurator
             var child = Configuration.GetSection("Users");
             foreach (var section in child.GetChildren())
             {
-                var user = new User { Password = section["Password"]!, Username = section["Username"]!};
+                var user = new User { Password = section["Password"]!, Username = section["Username"]!, Token = section["Token"]!};
                 user.UserType = section["UserType"]!.ToLower() switch
                 {
                     "admin" => UserType.Admin,
