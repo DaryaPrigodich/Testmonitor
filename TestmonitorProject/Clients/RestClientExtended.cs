@@ -1,5 +1,6 @@
 using NLog;
 using RestSharp;
+using RestSharp.Authenticators;
 using TestmonitorProject.Configuration;
 using TestmonitorProject.Models.Enum;
 
@@ -16,7 +17,11 @@ public class RestClientExtended
         if (userType == UserType.Admin)
         {
             var options = new RestClientOptions(Configurator.AppSettings.ApiUrl ?? throw new InvalidOperationException(
-                "API URL can't be null. Check your appsetting.json file."));
+                "API URL can't be null. Check your appsetting.json file."))
+            {
+                Authenticator = new JwtAuthenticator(Configurator.Admin.Token ?? throw new InvalidOperationException(
+                    "Token can't be null. Check your appsetting.json file."))
+            };
             _client = new RestClient(options); 
         }
         else
