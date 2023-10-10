@@ -1,3 +1,4 @@
+using System.Net;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using RestSharp;
@@ -24,6 +25,14 @@ public class ProjectService : IDisposable
 
         return JsonConvert.DeserializeObject<ProjectResponse>(responseJson) 
                ?? throw new SerializationException("Content response is null. Debug for more details.");
+    }
+    
+    public HttpStatusCode ArchiveProject(string projectId)
+    {
+        var request = new RestRequest("project/{projectId}/archive", Method.Post)
+            .AddUrlSegment("projectId", projectId);
+
+        return _client.ExecuteAsync(request).Result.StatusCode;
     }
     
     public void Dispose()
