@@ -20,6 +20,14 @@ public class ProjectTest : BaseApiTest
         _createdProject.Data.Name.Should().Be(_project.Name);
     }
     
+    [Test]
+    public void GetProject()
+    {
+        var statusCode = ProjectService.GetProject(_createdProject.Data.Id.ToString());
+
+        statusCode.Should().Be(HttpStatusCode.OK);
+    }
+    
     [OneTimeTearDown]
     public void SetUpPostConditionSteps()
     {
