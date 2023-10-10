@@ -27,6 +27,14 @@ public class ProjectService : IDisposable
                ?? throw new SerializationException("Content response is null. Debug for more details.");
     }
     
+    public HttpStatusCode GetProject(string projectId)
+    {
+        var request = new RestRequest("projects/{projectId}")
+            .AddUrlSegment("projectId", projectId);
+
+        return _client.ExecuteAsync(request).Result.StatusCode;
+    }
+    
     public HttpStatusCode ArchiveProject(string projectId)
     {
         var request = new RestRequest("project/{projectId}/archive", Method.Post)
