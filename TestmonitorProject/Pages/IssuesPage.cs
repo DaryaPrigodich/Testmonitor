@@ -27,4 +27,15 @@ public class IssuesPage : BasePage
     {
         Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
+    
+    public bool DeleteIssue(string issueName)
+    {
+        IssueCheckBox(issueName).Click();
+        IssueSettings.OpenDropDownMenu();
+        DeleteOption.Click();
+        DeletionConfirmationCheckBox.Click();
+        DeleteButton.Click();
+        
+        return Issues.IsRowInvisible(issueName);
+    }
 }

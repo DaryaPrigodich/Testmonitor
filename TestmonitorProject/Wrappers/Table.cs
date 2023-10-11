@@ -13,4 +13,10 @@ public class Table
         _uiElement = new UiElement(driver, by);
         _waitService = new WaitService(driver);
     }
+    
+    
+    public bool IsRowInvisible(string rowName) => _waitService
+        .IsElementInvisible(By.XPath($"//td//*[contains(text(),'{rowName}')]"));
+
+    public bool IsTableContentVisible() => _waitService.GetVisibleElement(By.XPath("//tbody")).Displayed;
 }

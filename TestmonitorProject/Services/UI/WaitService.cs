@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using System.Collections.ObjectModel;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using TestmonitorProject.Configuration;
@@ -24,5 +25,20 @@ public class WaitService
     public IWebElement WaitElementIsClickable(IWebElement webElement)
     {
         return _waitService.Until(ExpectedConditions.ElementToBeClickable(webElement));
+    }
+    
+    public bool IsElementInvisible(By by)
+    {
+        return _waitService.Until(ExpectedConditions.InvisibilityOfElementLocated(by));
+    }
+    
+    public IWebElement GetVisibleElement(By by)
+    {
+        return _waitService.Until(ExpectedConditions.ElementIsVisible(by));
+    }
+    
+    public void WaitTillElementsVisible(ReadOnlyCollection<IWebElement> elements)
+    {
+        _waitService.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(elements));
     }
 }
