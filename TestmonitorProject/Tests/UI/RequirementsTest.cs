@@ -37,6 +37,20 @@ public class RequirementsTest : BaseUiTest
         
         isSuiteNotCreated.Should().BeTrue("Suite has created with blank required suite name input.");
     }
+    
+    [Test]
+    [TestCase(1), TestCase(99), TestCase(100)]
+    public void CreateRequirementPassingAllowedNumberOfCharacters(int requirementNameLength)
+    {
+        var nameLength = _projectOverviewPage
+            .OpenProjectByName(_project.Name)
+            .OpenProjectRequirements()
+            .ClickAddRequirementButton()
+            .CreateRequirement(requirementNameLength)
+            .GetRequirementNameLength();
+
+        nameLength.Should().Be(requirementNameLength,"Suite hasn't created with allowed number of characters in suite name input.");
+    }
 
     [TearDown]
     [Description("Execution of post-condition steps")]
