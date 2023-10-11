@@ -65,6 +65,17 @@ public class RequirementsTest : BaseUiTest
         
         nameLength.Should().Be(expectedNameLength,"Requirement has created with not allowed number of characters in requirement name input.");
     }
+    
+    [Test]
+    public void ImportFile()
+    {
+        var isFileImport = _projectOverviewPage
+            .OpenProjectByName(_project.Name)
+            .OpenProjectRequirements()
+            .ImportFile();
+
+        isFileImport.Should().BeTrue("File hasn't imported.");
+    }
 
     [TearDown]
     [Description("Execution of post-condition steps")]
