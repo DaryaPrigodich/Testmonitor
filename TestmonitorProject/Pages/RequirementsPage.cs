@@ -24,7 +24,7 @@ public class RequirementsPage : BasePage
     private UiElement TypeOption => new(Driver, By.XPath("(//span[contains(text(),'type')])[3]"));
     private UiElement Next => new(Driver, By.XPath("//button//*[contains(text(),'Next')]"));
     private UiElement ConfirmationButton => new(Driver, By.XPath("//button//span[contains(text(),'Confirm')]"));
-    private UiElement ImportButton => new(Driver, By.XPath("//span[contains(text(),'Import')]"));
+    private UiElement ImportButton => new(Driver, By.XPath("//button//span[contains(text(),'Import')]"));
     private UiElement BackButton => new(Driver, By.XPath("//button[contains(@class,'success')]"));
     private Table Requirements => new(Driver, By.XPath("//table"));
     
