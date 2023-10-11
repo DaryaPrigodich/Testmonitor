@@ -9,6 +9,7 @@ public class ProjectPage : BasePage
     private string Endpoint(string projectId) => $"{projectId}";
     
     private UiElement Requirements => new (Driver, By.XPath("//span[contains(text(),'requirements')]"));
+    private UiElement TestCases => new (Driver, By.XPath("//span[contains(text(),'test cases')]"));
 
     public ProjectPage(IWebDriver driver, bool openPageByUrl, string projectId) : base(driver, openPageByUrl)
     {
@@ -28,5 +29,12 @@ public class ProjectPage : BasePage
         Requirements.Click();
 
         return new RequirementsPage(Driver);
+    }
+    
+    public TestSuitesPage OpenProjectTestCases()
+    {
+        TestCases.Click();
+
+        return new TestSuitesPage(Driver);
     }
 }
