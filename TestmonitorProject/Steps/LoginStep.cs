@@ -16,4 +16,14 @@ public class LoginStep : BaseStep
         
         return new ProjectOverviewPage(Driver);
     }
+    
+    public string LoginWithInvalidCredentials(string username,string password)
+    {
+        var loginErrorMessage = LoginPage
+            .InputUsernameAndPassword(username,password)
+            .SubmitLoginForm()
+            .GetErrorMessage();
+        
+        return loginErrorMessage ;
+    }
 }
