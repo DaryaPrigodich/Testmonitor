@@ -51,6 +51,20 @@ public class RequirementsTest : BaseUiTest
 
         nameLength.Should().Be(requirementNameLength,"Suite hasn't created with allowed number of characters in suite name input.");
     }
+    
+    [Test]
+    [TestCase(101,100)]
+    public void CreateRequirementWithInvalidNumberOfCharacters(int requirementNameLength, int expectedNameLength)
+    {
+        var nameLength = _projectOverviewPage
+            .OpenProjectByName(_project.Name)
+            .OpenProjectRequirements()
+            .ClickAddRequirementButton()
+            .CreateRequirement(requirementNameLength)
+            .GetRequirementNameLength();
+        
+        nameLength.Should().Be(expectedNameLength,"Requirement has created with not allowed number of characters in requirement name input.");
+    }
 
     [TearDown]
     [Description("Execution of post-condition steps")]
