@@ -11,6 +11,7 @@ public class LoginPage : BasePage
     private UiElement EmailInput => new (Driver, By.Id("email"));
     private UiElement PasswordInput => new (Driver, By.Id("password"));
     private UiElement LoginButton => new (Driver, By.XPath("//*[@type='submit']"));
+    private UiElement ErrorMessage => new (Driver, By.XPath("//*[@class='message-body']"));
 
     public LoginPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl)
     {
@@ -34,5 +35,10 @@ public class LoginPage : BasePage
         LoginButton.Click();
         
         return this;
+    }
+    
+    public string GetErrorMessage()
+    {
+        return ErrorMessage.Text; 
     }
 }
