@@ -28,15 +28,33 @@ public class IssuesPage : BasePage
     {
         Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
-    
-    [AllureStep("Delete \"{0}\" issue using issue settings")]
-    public bool DeleteIssue(string issueName)
+
+    [AllureStep("Open issue settings")]
+    private void OpenIssueSettings(string issueName)
     {
         IssueCheckBox(issueName).Click();
         IssueSettings.OpenDropDownMenu();
+    }
+
+    [AllureStep("Click Delete option")]
+    private void SelectDeleteOption()
+    {
         DeleteOption.Click();
+    }
+
+    [AllureStep("Confirm deletion")]
+    private void ConfirmDeletion()
+    {
         DeletionConfirmationCheckBox.Click();
         DeleteButton.Click();
+    }
+    
+    [AllureStep("Delete \"{0}\" issue")]
+    public bool DeleteIssue(string issueName)
+    {
+        OpenIssueSettings(issueName);
+        SelectDeleteOption();
+        ConfirmDeletion();
         
         return Issues.IsRowInvisible(issueName);
     }
