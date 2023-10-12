@@ -1,5 +1,8 @@
 ﻿using System.Net;
+using Allure.Commons;
 using FluentAssertions;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 using TestmonitorProject.Configuration;
 using TestmonitorProject.Fakers;
@@ -8,12 +11,16 @@ using TestmonitorProject.Pages;
 
 namespace TestmonitorProject.Tests.UI;
 
+[AllureNUnit]
+[AllureParentSuite("UI")]
+[AllureEpic("Test Suite")]
 public class TestSuiteTest : BaseUiTest
 {
     private Project _project = null!;
     private ProjectResponse _createdProject = null!;
     
     private ProjectOverviewPage _projectOverviewPage = null!;
+    
     [SetUp]
     [Description("Execution of pre-condition steps")]
     public void SetUpPreconditionSteps()
@@ -26,6 +33,9 @@ public class TestSuiteTest : BaseUiTest
     }
     
     [Test]
+    [Category("Positive")]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureName("Create Test Suite")]
     public void CreateTestSuite()
     {
         var isSuiteCreated = _projectOverviewPage

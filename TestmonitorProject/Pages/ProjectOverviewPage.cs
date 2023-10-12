@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Allure.Attributes;
+using OpenQA.Selenium;
 using TestmonitorProject.Configuration;
 using TestmonitorProject.Wrappers;
 
@@ -25,6 +26,7 @@ public class ProjectOverviewPage : BasePage
         Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
     
+    [AllureStep("Open \"{0}\" project repository")]
     public ProjectPage OpenProjectByName(string projectName)
     {
         Project(projectName).Click();
@@ -32,13 +34,15 @@ public class ProjectOverviewPage : BasePage
         return new ProjectPage(Driver);
     }
     
+    [AllureStep("Click \"support pop-up\" button")]
     public ProjectOverviewPage ShowSupportPopUp()
     {
         SupportPopUp.Click();
         
         return this;
     }
-    
+   
+    [AllureStep("Click \"Help center\" option")]
     public HelpCenterPage OpenHelpCenter()
     {
         HelpCenterButton.Click();

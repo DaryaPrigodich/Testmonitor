@@ -1,11 +1,17 @@
 using System.Net;
+using Allure.Commons;
 using FluentAssertions;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 using TestmonitorProject.Fakers;
 using TestmonitorProject.Models;
 
 namespace TestmonitorProject.Tests.API;
 
+[AllureNUnit]
+[AllureParentSuite("API")]
+[AllureEpic("Issue")]
 public class IssueTest : BaseApiTest
 {
     private Project _project = null!;
@@ -24,6 +30,9 @@ public class IssueTest : BaseApiTest
     }
     
     [Test]
+    [Category("Negative")]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureName("Get non existent issue")]
     [TestCase("incorrect")]
     public void GetNonExistentIssue(string incorrectIssueId)
     {

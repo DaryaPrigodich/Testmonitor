@@ -1,6 +1,7 @@
 using System.Net;
 using System.Runtime.Serialization;
 using Newtonsoft.Json;
+using NUnit.Allure.Attributes;
 using RestSharp;
 using TestmonitorProject.Clients;
 using TestmonitorProject.Models;
@@ -16,6 +17,7 @@ public class ProjectService : IDisposable
         _client = client;
     }
 
+    [AllureStep("Create project using API endpoint")]
     public  ProjectResponse CreateProject(Project project)
     {
         var request = new RestRequest("projects", Method.Post)
@@ -27,6 +29,7 @@ public class ProjectService : IDisposable
                ?? throw new SerializationException("Content response is null. Debug for more details.");
     }
     
+    [AllureStep("Get project using API endpoint")]
     public HttpStatusCode GetProject(string projectId)
     {
         var request = new RestRequest("projects/{projectId}")
@@ -35,6 +38,7 @@ public class ProjectService : IDisposable
         return _client.ExecuteAsync(request).Result.StatusCode;
     }
     
+    [AllureStep("Archive project using API endpoint")]
     public HttpStatusCode ArchiveProject(string projectId)
     {
         var request = new RestRequest("project/{projectId}/archive", Method.Post)

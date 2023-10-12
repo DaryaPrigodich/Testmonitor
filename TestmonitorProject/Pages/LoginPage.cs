@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Allure.Attributes;
+using OpenQA.Selenium;
 using TestmonitorProject.Configuration;
 using TestmonitorProject.Wrappers;
 
@@ -22,6 +23,7 @@ public class LoginPage : BasePage
         Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
     
+    [AllureStep("Populate authorization data with: username {0} password {1}")]
     public LoginPage InputUsernameAndPassword(string username, string password)
     {
         EmailInput.SendKeys(username);
@@ -30,6 +32,7 @@ public class LoginPage : BasePage
         return this;
     }
 
+    [AllureStep("Submit authorization form")]
     public LoginPage SubmitLoginForm()
     {
         LoginButton.Click();

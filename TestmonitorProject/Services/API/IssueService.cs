@@ -1,4 +1,5 @@
 using System.Net;
+using NUnit.Allure.Attributes;
 using RestSharp;
 using TestmonitorProject.Clients;
 using TestmonitorProject.Models;
@@ -14,6 +15,7 @@ public class IssueService : IDisposable
         _client = client;
     }
 
+    [AllureStep("Create issue using API endpoint")]
     public HttpStatusCode CreateIssue(Issue issue)
     {
         var request = new RestRequest("issues", Method.Post)
@@ -22,6 +24,7 @@ public class IssueService : IDisposable
         return _client.ExecuteAsync(request).Result.StatusCode;
     }
     
+    [AllureStep("Get issue using API endpoint")]
     public HttpStatusCode GetIssue(string issueId)
     {
         var request = new RestRequest("issues/{issueId}")
