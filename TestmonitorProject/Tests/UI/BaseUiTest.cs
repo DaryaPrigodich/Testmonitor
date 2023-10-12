@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using Allure.Commons;
+using NUnit.Framework;
+using NUnit.Framework.Interfaces;
 using OpenQA.Selenium;
 using TestmonitorProject.Clients;
 using TestmonitorProject.Configuration;
@@ -32,6 +34,13 @@ public class BaseUiTest
     [TearDown]
     public void CloseBrowser()
     {
+
+        if (TestContext.CurrentContext.Result.Outcome != ResultState.Success)
+        {
+            var screenshot = ((ITakesScreenshot)Driver).GetScreenshot().AsByteArray;
+            AllureLifecycle.Instance.AddAttachment("Attachment", "image/png", screenshot);
+        }
+
         Driver.Quit();
     }
 }

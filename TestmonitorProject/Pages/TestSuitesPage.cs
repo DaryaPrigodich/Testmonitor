@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Allure.Attributes;
+using OpenQA.Selenium;
 using TestmonitorProject.Configuration;
 using TestmonitorProject.Wrappers;
 
@@ -25,7 +26,22 @@ public class TestSuitesPage : BasePage
     {
         Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
+   
+    [AllureStep("Populate test suite data")]
+    private void PopulateTestSuiteData()
+    {
+        var testSuiteName = new Bogus.Faker().Lorem.Word();
 
+        TestSuiteNameInput.SendKeys(testSuiteName);
+    }
+
+    [AllureStep("Submit test suite form")]
+    private void SubmitTestSuiteForm()
+    {
+        CreateTestSuiteButton.Click();
+    }
+
+    [AllureStep("Click on \"Add Test Suite\" button")]
     public TestSuitesPage ClickAddTestSuiteButton()
     {
         AddTestSuiteButton.Click();
@@ -33,13 +49,12 @@ public class TestSuitesPage : BasePage
         return this;
     }
  
+    [AllureStep("Create test suite")]
     public bool CreateTestSuite()
     {
-        var testSuiteName = new Bogus.Faker().Lorem.Word();
-
-        TestSuiteNameInput.SendKeys(testSuiteName);
-        CreateTestSuiteButton.Click();
-
+        PopulateTestSuiteData();
+        SubmitTestSuiteForm();
+        
         return SuccessCreatedMessage.Displayed;
     }
 }

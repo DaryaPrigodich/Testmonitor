@@ -1,5 +1,8 @@
 ﻿using System.Net;
+using Allure.Commons;
 using FluentAssertions;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
 using NUnit.Framework;
 using TestmonitorProject.Configuration;
 using TestmonitorProject.Fakers;
@@ -8,6 +11,9 @@ using TestmonitorProject.Pages;
 
 namespace TestmonitorProject.Tests.UI;
 
+[AllureNUnit]
+[AllureParentSuite("UI")]
+[AllureEpic("Project")]
 public class FailedTest : BaseUiTest
 {
     private Project _project = null!;
@@ -27,8 +33,11 @@ public class FailedTest : BaseUiTest
     }
     
     [Test]
+    [Category("Negative")]
+    [AllureSeverity(SeverityLevel.normal)]
+    [AllureName("Open a particular project repository")]
     [TestCase("Projects|TestMonitor")]
-    public void CreateRequirementWithBlankNameInput(string incorrectTitle)
+    public void OpenProjectRepository(string incorrectTitle)
     {
          _projectOverviewPage
             .OpenProjectByName(_project.Name);

@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Allure.Attributes;
+using OpenQA.Selenium;
 using TestmonitorProject.Configuration;
 using TestmonitorProject.Wrappers;
 
@@ -28,6 +29,7 @@ public class IssuesPage : BasePage
         Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
     
+    [AllureStep("Delete \"{0}\" issue using issue settings")]
     public bool DeleteIssue(string issueName)
     {
         IssueCheckBox(issueName).Click();

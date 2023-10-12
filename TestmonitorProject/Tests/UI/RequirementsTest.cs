@@ -1,6 +1,9 @@
 ﻿using System.Net;
+using Allure.Commons;
 using NUnit.Framework;
 using FluentAssertions;
+using NUnit.Allure.Attributes;
+using NUnit.Allure.Core;
 using TestmonitorProject.Configuration;
 using TestmonitorProject.Fakers;
 using TestmonitorProject.Models;
@@ -8,6 +11,9 @@ using TestmonitorProject.Pages;
 
 namespace TestmonitorProject.Tests.UI;
 
+[AllureNUnit]
+[AllureParentSuite("UI")]
+[AllureEpic("Requirement")]
 public class RequirementsTest : BaseUiTest
 {
     private Project _project = null!;
@@ -27,6 +33,9 @@ public class RequirementsTest : BaseUiTest
     }
     
     [Test]
+    [Category("Positive")][Category("Boundary")]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureName("Create requirement  with blank name input")]
     public void CreateRequirementWithBlankNameInput()
     {
         var isSuiteNotCreated = _projectOverviewPage
@@ -39,6 +48,9 @@ public class RequirementsTest : BaseUiTest
     }
     
     [Test]
+    [Category("Positive")][Category("Boundary")]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureName("Create requirement  with allowed number of characters in name input")]
     [TestCase(1), TestCase(99), TestCase(100)]
     public void CreateRequirementPassingAllowedNumberOfCharacters(int requirementNameLength)
     {
@@ -53,6 +65,9 @@ public class RequirementsTest : BaseUiTest
     }
     
     [Test]
+    [Category("Negative")][Category("Boundary")]
+    [AllureSeverity(SeverityLevel.critical)]
+    [AllureName("Create requirement  with not allowed number of characters in name input")]
     [TestCase(101,100)]
     public void CreateRequirementWithInvalidNumberOfCharacters(int requirementNameLength, int expectedNameLength)
     {
@@ -67,6 +82,9 @@ public class RequirementsTest : BaseUiTest
     }
     
     [Test]
+    [Category("Positive")]
+    [AllureSeverity(SeverityLevel.normal)]
+    [AllureName("Import file into project requirements")]
     public void ImportFile()
     {
         var isFileImport = _projectOverviewPage

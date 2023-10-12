@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium;
+﻿using NUnit.Allure.Attributes;
+using OpenQA.Selenium;
 using TestmonitorProject.Configuration;
 using TestmonitorProject.Wrappers;
 
@@ -25,6 +26,7 @@ public class ProjectPage : BasePage
         Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
     
+    [AllureStep("Open project requirements overview page")]
     public RequirementsPage OpenProjectRequirements()
     {
         Requirements.Click();
@@ -32,12 +34,15 @@ public class ProjectPage : BasePage
         return new RequirementsPage(Driver);
     }
     
+    [AllureStep("Open project test cases overview page")]
     public TestSuitesPage OpenProjectTestCases()
     {
         TestCases.Click();
 
         return new TestSuitesPage(Driver);
     }
+    
+    [AllureStep("Open project issues overview page")]
     public IssuesPage OpenProjectIssues()
     {
         Issues.Click();

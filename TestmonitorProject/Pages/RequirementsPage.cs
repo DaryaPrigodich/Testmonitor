@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
 using TestmonitorProject.Configuration;
 using TestmonitorProject.Wrappers;
@@ -40,7 +41,14 @@ public class RequirementsPage : BasePage
     {
         Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
-    
+
+    [AllureStep("Click \"Import\" in requirements settings")]
+    private void OpenImportSettings()
+    {
+        RequirementSettings.OpenDropDownMenu();
+        ImportOption.Click();
+    }
+
     private static string GetFilePath()
     {
         var basePath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
@@ -48,6 +56,7 @@ public class RequirementsPage : BasePage
         return Path.Combine(basePath, $"TestData{Path.DirectorySeparatorChar}", "requirements-import-example.xlsx");
     }
 
+    [AllureStep("Upload \"requirements-import-example\" file")]
     private void UploadFile()
     {
         var filePath = GetFilePath();
@@ -56,6 +65,7 @@ public class RequirementsPage : BasePage
         Mapping.Click();
     }
 
+    [AllureStep("Match file columns")]
     private void MappingFile()
     {
         MapColumn.Click();
@@ -69,19 +79,26 @@ public class RequirementsPage : BasePage
         Next.Click();
         ConfirmationButton.Click();
     }
-    
-    public bool ImportFile()
+
+    [AllureStep("Click confirmation buttons")]
+    private void ConfirmImport()
     {
-        RequirementSettings.OpenDropDownMenu();
-        ImportOption.Click();
-        UploadFile();
-        MappingFile();
         ImportButton.Click();
         BackButton.Click();
+    }
+
+    [AllureStep("Import \"requirements-import-example\" file")]
+    public bool ImportFile()
+    {
+        OpenImportSettings();
+        UploadFile();
+        MappingFile();
+        ConfirmImport();
 
         return Requirements.IsTableContentVisible();
     }
 
+    [AllureStep("Click on \"Add Requirement\" button")]
     public RequirementsPage ClickAddRequirementButton()
     {
         AddRequirementButton.Click();
@@ -89,6 +106,7 @@ public class RequirementsPage : BasePage
         return this;
     }
 
+    [AllureStep("Click on \"Create\" button")]
     public bool ClickCreateButton()
     {
         CreateRequirementButton.Click();
@@ -96,6 +114,7 @@ public class RequirementsPage : BasePage
         return CreateRequirementForm.Displayed;
     }
     
+    [AllureStep("Create requirement with \"{0}\" characters in requirement name input")]
     public RequirementsPage CreateRequirement(int requirementNameLength)
     {
         var requirementName = new Bogus.Faker().Lorem.Letter(requirementNameLength);
