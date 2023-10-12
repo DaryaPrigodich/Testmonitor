@@ -87,6 +87,20 @@ public class RequirementsPage : BasePage
         BackButton.Click();
     }
 
+    [AllureStep("Populate requirement data")]
+    private void PopulateRequirementData(int requirementNameLength)
+    {
+        var requirementName = new Bogus.Faker().Lorem.Letter(requirementNameLength);
+
+        RequirementNameInput.SendKeys(requirementName);
+    }
+
+    [AllureStep("Submit requirement form")]
+    private void SubmitRequirementForm()
+    {
+        CreateRequirementButton.Click();
+    }
+
     [AllureStep("Import \"requirements-import-example\" file")]
     public bool ImportFile()
     {
@@ -117,11 +131,9 @@ public class RequirementsPage : BasePage
     [AllureStep("Create requirement with \"{0}\" characters in requirement name input")]
     public RequirementsPage CreateRequirement(int requirementNameLength)
     {
-        var requirementName = new Bogus.Faker().Lorem.Letter(requirementNameLength);
-
-        RequirementNameInput.SendKeys(requirementName);
-        CreateRequirementButton.Click();
-
+        PopulateRequirementData(requirementNameLength);
+        SubmitRequirementForm();
+        
         return this;
     }
     

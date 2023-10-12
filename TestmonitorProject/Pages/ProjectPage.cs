@@ -26,7 +26,7 @@ public class ProjectPage : BasePage
         Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
     
-    [AllureStep("Open project requirements overview page")]
+    [AllureStep("Click \"requirements\" button")]
     public RequirementsPage OpenProjectRequirements()
     {
         Requirements.Click();
@@ -34,7 +34,7 @@ public class ProjectPage : BasePage
         return new RequirementsPage(Driver);
     }
     
-    [AllureStep("Open project test cases overview page")]
+    [AllureStep("Click \"test cases\" button")]
     public TestSuitesPage OpenProjectTestCases()
     {
         TestCases.Click();
@@ -42,7 +42,7 @@ public class ProjectPage : BasePage
         return new TestSuitesPage(Driver);
     }
     
-    [AllureStep("Open project issues overview page")]
+    [AllureStep("Click \"issues\" button")]
     public IssuesPage OpenProjectIssues()
     {
         Issues.Click();
