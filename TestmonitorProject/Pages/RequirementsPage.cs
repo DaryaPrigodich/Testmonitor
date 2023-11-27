@@ -2,6 +2,7 @@
 using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
 using TestmonitorProject.Configuration;
+using TestmonitorProject.Services.UI;
 using TestmonitorProject.Wrappers;
 
 namespace TestmonitorProject.Pages;
@@ -10,24 +11,24 @@ public class RequirementsPage : BasePage
 {
     private const string Endpoint = "projects";
 
-    private UiElement AddRequirementButton => new(Driver, By.XPath("//*[contains(text(),'Add Requirement')]"));
-    private UiElement CreateRequirementButton => new(Driver, By.XPath("//*[@type='submit']"));
-    private UiElement CreateRequirementForm => new(Driver, By.XPath("//*[@class='modal-card']"));
-    private UiElement RequirementNameInput => new(Driver, By.XPath("//*[@name='name']"));
-    private UiElement RequirementName => new(Driver, By.XPath("//td[@data-label='Name']//span"));
-    private DropDownMenu RequirementSettings => new(Driver, By.XPath("//*[@class='dropdown-component']//*[contains(@class,'is-bottom-left')]"));
-    private UiElement ImportOption => new(Driver, By.XPath("//*[contains(text(),'Import')]"));
-    private UiElement ImportField => new(Driver, By.XPath("//input[@type='file']"));
-    private UiElement Mapping => new(Driver, By.XPath("//*[contains(text(),'Mapping')]/parent::button"));
-    private UiElement MapColumn => new(Driver, By.XPath("//span[contains(text(),'Map')]"));
-    private UiElement NameOption => new(Driver, By.XPath("//span[contains(text(),'name')]"));
-    private UiElement DescriptionOption => new(Driver, By.XPath("(//span[contains(text(),'description')])[2]"));
-    private UiElement TypeOption => new(Driver, By.XPath("(//span[contains(text(),'type')])[3]"));
-    private UiElement Next => new(Driver, By.XPath("//button//*[contains(text(),'Next')]"));
-    private UiElement ConfirmationButton => new(Driver, By.XPath("//button//span[contains(text(),'Confirm')]"));
-    private UiElement ImportButton => new(Driver, By.XPath("//button//span[contains(text(),'Import')]"));
-    private UiElement BackButton => new(Driver, By.XPath("//button[contains(@class,'success')]"));
-    private Table Requirements => new(Driver, By.XPath("//table"));
+    private static UiElement AddRequirementButton => new(BrowserService.Driver, By.XPath("//*[contains(text(),'Add Requirement')]"));
+    private static UiElement CreateRequirementButton => new(BrowserService.Driver, By.XPath("//*[@type='submit']"));
+    private static UiElement CreateRequirementForm => new(BrowserService.Driver, By.XPath("//*[@class='modal-card']"));
+    private static UiElement RequirementNameInput => new(BrowserService.Driver, By.XPath("//*[@name='name']"));
+    private static UiElement RequirementName => new(BrowserService.Driver, By.XPath("//td[@data-label='Name']//span"));
+    private static DropDownMenu RequirementSettings => new(BrowserService.Driver, By.XPath("//*[@class='dropdown-component']//*[contains(@class,'is-bottom-left')]"));
+    private static UiElement ImportOption => new(BrowserService.Driver, By.XPath("//*[contains(text(),'Import')]"));
+    private static UiElement ImportField => new(BrowserService.Driver, By.XPath("//input[@type='file']"));
+    private static UiElement Mapping => new(BrowserService.Driver, By.XPath("//*[contains(text(),'Mapping')]/parent::button"));
+    private static UiElement MapColumn => new(BrowserService.Driver, By.XPath("//span[contains(text(),'Map')]"));
+    private static UiElement NameOption => new(BrowserService.Driver, By.XPath("//span[contains(text(),'name')]"));
+    private static UiElement DescriptionOption => new(BrowserService.Driver, By.XPath("(//span[contains(text(),'description')])[2]"));
+    private static UiElement TypeOption => new(BrowserService.Driver, By.XPath("(//span[contains(text(),'type')])[3]"));
+    private static UiElement Next => new(BrowserService.Driver, By.XPath("//button//*[contains(text(),'Next')]"));
+    private static UiElement ConfirmationButton => new(BrowserService.Driver, By.XPath("//button//span[contains(text(),'Confirm')]"));
+    private static UiElement ImportButton => new(BrowserService.Driver, By.XPath("//button//span[contains(text(),'Import')]"));
+    private static UiElement BackButton => new(BrowserService.Driver, By.XPath("//button[contains(@class,'success')]"));
+    private static Table Requirements => new(BrowserService.Driver, By.XPath("//table"));
     
     public RequirementsPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl)
     {
@@ -39,7 +40,7 @@ public class RequirementsPage : BasePage
 
     protected override void OpenPage()
     {
-        Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
+        BrowserService.Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
 
     [AllureStep("Click \"Import\" in requirements settings")]
