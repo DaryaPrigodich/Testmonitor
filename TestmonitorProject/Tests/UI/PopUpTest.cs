@@ -38,7 +38,7 @@ public class PopUpTest : BaseUiTest
         using (new AssertionScope())
         {
             helpCenterPage.IsPageOpened().Should().BeTrue("Help Center page hasn't open.");
-            BrowserService.Driver.WindowHandles.Count.Should().Be(2, "Help Center page hasn't open.");
+            BrowserService.Driver.Value!.WindowHandles.Count.Should().Be(2, "Help Center page hasn't open.");
         }
     }
 }

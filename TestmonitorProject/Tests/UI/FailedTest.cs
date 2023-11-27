@@ -43,7 +43,7 @@ public class FailedTest : BaseUiTest
          _projectOverviewPage
             .OpenProjectByName(_project.Name);
 
-         BrowserService.Driver.Title.Should().Be(incorrectTitle);
+         BrowserService.Driver.Value!.Title.Should().Be(incorrectTitle);
     }
     
     [TearDown]

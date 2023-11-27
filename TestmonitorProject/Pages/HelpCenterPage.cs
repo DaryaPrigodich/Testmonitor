@@ -8,7 +8,7 @@ public class HelpCenterPage : BasePage
 {
     private string SupportURL => "https://help.testmonitor.com/";
     
-    private static UiElement HelpCategories => new (BrowserService.Driver, By.XPath("//*[@class='content-container']"));
+    private static UiElement HelpCategories => new (BrowserService.Driver.Value!, By.XPath("//*[@class='content-container']"));
 
     public HelpCenterPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl)
     {
@@ -20,7 +20,7 @@ public class HelpCenterPage : BasePage
     
     protected override void OpenPage()
     {
-        BrowserService.Driver.Navigate().GoToUrl(SupportURL);
+        BrowserService.Driver.Value!.Navigate().GoToUrl(SupportURL);
     }
     
     public bool IsPageOpened()

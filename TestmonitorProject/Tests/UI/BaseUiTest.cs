@@ -40,6 +40,6 @@ public class BaseUiTest
             AllureLifecycle.Instance.AddAttachment("Attachment", "image/png", screenshot);
         }
 
-        BrowserService.Driver.Quit();
+        BrowserService.Driver.Value!.Quit();
     }
 }
