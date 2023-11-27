@@ -13,7 +13,7 @@ public class LoginStep : BaseStep
         LoginPage.InputUsernameAndPassword(username,password)
             .SubmitLoginForm();
         
-        return new ProjectOverviewPage(BrowserService.Driver);
+        return new ProjectOverviewPage(BrowserService.Driver.Value!);
     }
     
     [AllureStep("Log in with invalid credentials, login - {0} and password - {1}")]

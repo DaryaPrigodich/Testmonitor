@@ -10,9 +10,9 @@ public class ProjectOverviewPage : BasePage
 {
     private const string Endpoint = "my-projects";
     
-    private static UiElement Project(string projectName) => new (BrowserService.Driver, By.XPath($"//*[text()='{projectName}']"));
-    private static UiElement SupportPopUp => new(BrowserService.Driver, By.XPath("//*[@class='support-widget-button']"));
-    private static UiElement HelpCenterButton => new(BrowserService.Driver, By.XPath("//*[contains(text(),'Visit our knowledge base')]"));
+    private static UiElement Project(string projectName) => new (BrowserService.Driver.Value!, By.XPath($"//*[text()='{projectName}']"));
+    private static UiElement SupportPopUp => new(BrowserService.Driver.Value!, By.XPath("//*[@class='support-widget-button']"));
+    private static UiElement HelpCenterButton => new(BrowserService.Driver.Value!, By.XPath("//*[contains(text(),'Visit our knowledge base')]"));
 
     public ProjectOverviewPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl)
     {
@@ -24,7 +24,7 @@ public class ProjectOverviewPage : BasePage
 
     protected override void OpenPage()
     {
-        BrowserService.Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
+        BrowserService.Driver.Value!.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
     
     [AllureStep("Open \"{0}\" project repository")]
@@ -32,7 +32,7 @@ public class ProjectOverviewPage : BasePage
     {
         Project(projectName).Click();
 
-        return new ProjectPage(BrowserService.Driver);
+        return new ProjectPage(BrowserService.Driver.Value!);
     }
     
     [AllureStep("Click \"support pop-up\" button")]
@@ -48,8 +48,8 @@ public class ProjectOverviewPage : BasePage
     {
         HelpCenterButton.Click();
 
-        BrowserService.Driver.SwitchTo().Window(BrowserService.Driver.WindowHandles[1]);
+        BrowserService.Driver.Value!.SwitchTo().Window(BrowserService.Driver.Value!.WindowHandles[1]);
 
-        return new HelpCenterPage(BrowserService.Driver);
+        return new HelpCenterPage(BrowserService.Driver.Value!);
     }
 }

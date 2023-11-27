@@ -10,10 +10,10 @@ public class LoginPage : BasePage
 {
     private const string Endpoint = "login";
     
-    private static UiElement EmailInput => new (BrowserService.Driver, By.Id("email"));
-    private static UiElement PasswordInput => new (BrowserService.Driver, By.Id("password"));
-    private static UiElement LoginButton => new (BrowserService.Driver, By.XPath("//*[@type='submit']"));
-    private static UiElement ErrorMessage => new (BrowserService.Driver, By.XPath("//*[@class='message-body']"));
+    private static UiElement EmailInput => new (BrowserService.Driver.Value!, By.Id("email"));
+    private static UiElement PasswordInput => new (BrowserService.Driver.Value!, By.Id("password"));
+    private static UiElement LoginButton => new (BrowserService.Driver.Value!, By.XPath("//*[@type='submit']"));
+    private static UiElement ErrorMessage => new (BrowserService.Driver.Value!, By.XPath("//*[@class='message-body']"));
 
     public LoginPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl)
     {
@@ -21,7 +21,7 @@ public class LoginPage : BasePage
 
     protected override void OpenPage()
     {
-        BrowserService.Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
+        BrowserService.Driver.Value!.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
     
     [AllureStep("Populate authorization data with: username {0} password {1}")]
