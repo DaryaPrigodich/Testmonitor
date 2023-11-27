@@ -1,17 +1,9 @@
-﻿using OpenQA.Selenium;
-using TestmonitorProject.Pages;
+﻿using TestmonitorProject.Pages;
+using TestmonitorProject.Services.UI;
 
 namespace TestmonitorProject.Steps;
 
 public class BaseStep
 {
-    protected readonly IWebDriver Driver;
-    protected readonly LoginPage LoginPage;
-
-    public BaseStep(IWebDriver driver)
-    {
-        Driver = driver;
-        
-        LoginPage = new LoginPage(Driver,true);
-    }
+    protected readonly LoginPage LoginPage = new(BrowserService.Driver,true);
 }

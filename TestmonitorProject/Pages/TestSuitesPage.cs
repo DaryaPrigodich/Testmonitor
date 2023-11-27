@@ -1,6 +1,7 @@
 ﻿using NUnit.Allure.Attributes;
 using OpenQA.Selenium;
 using TestmonitorProject.Configuration;
+using TestmonitorProject.Services.UI;
 using TestmonitorProject.Wrappers;
 
 namespace TestmonitorProject.Pages;
@@ -9,10 +10,10 @@ public class TestSuitesPage : BasePage
 {
     private string Endpoint(string projectId) => $"{projectId}/design/test-suites";
 
-    private UiElement AddTestSuiteButton => new(Driver, By.XPath("//*[contains(text(),'Add Test Suite')]"));
-    private UiElement TestSuiteNameInput => new(Driver, By.XPath("//*[@name='name']")); 
-    private UiElement CreateTestSuiteButton => new(Driver, By.XPath("//*[@type='submit']"));
-    private UiElement SuccessCreatedMessage => new(Driver, By.XPath("//*[@role='alert']//*[contains(text(),'suite')]"));
+    private static UiElement AddTestSuiteButton => new(BrowserService.Driver, By.XPath("//*[contains(text(),'Add Test Suite')]"));
+    private static UiElement TestSuiteNameInput => new(BrowserService.Driver, By.XPath("//*[@name='name']")); 
+    private static UiElement CreateTestSuiteButton => new(BrowserService.Driver, By.XPath("//*[@type='submit']"));
+    private static UiElement SuccessCreatedMessage => new(BrowserService.Driver, By.XPath("//*[@role='alert']//*[contains(text(),'suite')]"));
     
     public TestSuitesPage(IWebDriver driver, bool openPageByUrl) : base(driver, openPageByUrl)
     {
@@ -24,7 +25,7 @@ public class TestSuitesPage : BasePage
 
     protected override void OpenPage()
     {
-        Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
+        BrowserService.Driver.Navigate().GoToUrl(Configurator.AppSettings.UiUrl + Endpoint);
     }
    
     [AllureStep("Populate test suite data")]

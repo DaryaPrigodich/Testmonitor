@@ -8,6 +8,7 @@ using TestmonitorProject.Configuration;
 using TestmonitorProject.Fakers;
 using TestmonitorProject.Models;
 using TestmonitorProject.Pages;
+using TestmonitorProject.Services.UI;
 
 namespace TestmonitorProject.Tests.UI;
 
@@ -42,7 +43,7 @@ public class FailedTest : BaseUiTest
          _projectOverviewPage
             .OpenProjectByName(_project.Name);
 
-         Driver.Title.Should().Be(incorrectTitle);
+         BrowserService.Driver.Title.Should().Be(incorrectTitle);
     }
     
     [TearDown]

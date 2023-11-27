@@ -1,27 +1,39 @@
-﻿using OpenQA.Selenium;
+﻿using System.Collections.Concurrent;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
+using NUnit.Framework;
+using TestmonitorProject.Configuration;
 
 namespace TestmonitorProject.Services.UI;
 
 public class BrowserService
 {
-    public IWebDriver WebDriver { get; }
+    
+    private static readonly ConcurrentDictionary<string, IWebDriver> DriverCollection = new();
 
-    public BrowserService(string browserName)
+    public static IWebDriver Driver
     {
-        switch (browserName.ToLower())
+        get
         {
-            case "chrome" : var chromeOptions = new DriverOptionsProvider().GetChromeDriverOptions();
-                WebDriver = new ChromeDriver(chromeOptions);
-                break;
-            case "firefox" : var FirefoxOptions = new DriverOptionsProvider().GetFirefoxDriverOptions();
-                WebDriver = new FirefoxDriver(FirefoxOptions);
-                break;
-            default: throw new Exception("Incorrect Browser Name.");
+            DriverCollection.TryGetValue(TestContext.CurrentContext.Test.Name, out var driver);
+                
+            return driver!;
         }
-        
-        WebDriver.Manage().Window.Maximize();
-        WebDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
+
+        private set => DriverCollection.TryAdd(TestContext.CurrentContext.Test.Name, value);
+    }
+
+    public static void InitBrowser()
+    {
+        Driver = Configurator.AppSettings.Browser switch
+        {
+            "chrome" => new ChromeDriver(DriverOptionsProvider.GetChromeDriverOptions()),
+            "firefox" => new FirefoxDriver(DriverOptionsProvider.GetFirefoxDriverOptions()),
+            _ => throw new ArgumentException("Check that your Browser property in appsettings.json is set to either chrome or firefox.")
+        };
+
+        Driver.Manage().Window.Maximize();
+        Driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(0);
     }
 }

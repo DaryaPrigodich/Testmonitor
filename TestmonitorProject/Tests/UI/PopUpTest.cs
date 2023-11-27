@@ -6,6 +6,7 @@ using NUnit.Allure.Core;
 using NUnit.Framework;
 using TestmonitorProject.Configuration;
 using TestmonitorProject.Pages;
+using TestmonitorProject.Services.UI;
 
 namespace TestmonitorProject.Tests.UI;
 
@@ -37,7 +38,7 @@ public class PopUpTest : BaseUiTest
         using (new AssertionScope())
         {
             helpCenterPage.IsPageOpened().Should().BeTrue("Help Center page hasn't open.");
-            Driver.WindowHandles.Count.Should().Be(2, "Help Center page hasn't open.");
+            BrowserService.Driver.WindowHandles.Count.Should().Be(2, "Help Center page hasn't open.");
         }
     }
 }

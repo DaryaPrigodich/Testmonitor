@@ -7,15 +7,22 @@ namespace TestmonitorProject.Tests.API;
 
 public class BaseApiTest
 {
+    private RestClientExtended _client = null!;
     protected ProjectService ProjectService { get; private set; } = null!;
     protected IssueService IssueService { get; private set; } = null!;
 
     [OneTimeSetUp]
     public void SetUpClient()
     {
-        var restClient = new RestClientExtended(UserType.Admin);
+        _client = new RestClientExtended(UserType.Admin);
 
-        ProjectService = new ProjectService(restClient);
-        IssueService = new IssueService(restClient);
+        ProjectService = new ProjectService(_client);
+        IssueService = new IssueService(_client);
+    }
+    
+    [OneTimeTearDown]
+    public void DisposeClient()
+    {
+        _client.Dispose();
     }
 }
